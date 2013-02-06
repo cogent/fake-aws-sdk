@@ -1,1 +1,1 @@
-require "fake-aws"
+require "fake_aws"

@@ -1,6 +1,6 @@
 require "spec_helper"
 
-require "fake-aws/s3/bucket"
+require "fake_aws/s3/bucket"
 
 describe FakeAWS::S3::Bucket do
 

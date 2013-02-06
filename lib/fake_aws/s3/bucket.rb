@@ -1,4 +1,4 @@
-require "fake-aws/s3/s3_object"
+require "fake_aws/s3/s3_object"
 
 module FakeAWS
   module S3

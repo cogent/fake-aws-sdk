@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in fake-aws-sdk.gemspec
-gemspec
+# Using this, rather than "gemspec", so that "bundle console" works
+gem "fake-aws-sdk", :path => ".", :require => "fake-aws"
 
 group :test do
   gem "rake"

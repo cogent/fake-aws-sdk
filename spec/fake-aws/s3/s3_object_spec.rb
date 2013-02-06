@@ -67,4 +67,22 @@ describe FakeAWS::S3::S3Object do
 
   end
 
+  describe "#write" do
+
+    context "with an IO object" do
+
+      let(:data) { "stream-of-stuff" }
+
+      before do
+        object.write(StringIO.new(data))
+      end
+
+      it "saves the streamed data" do
+        object.read.should eq(data)
+      end
+
+    end
+
+  end
+
 end

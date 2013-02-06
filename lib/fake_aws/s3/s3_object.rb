@@ -12,7 +12,7 @@ module FakeAWS
       attr_reader :key
 
       def write(data)
-        # data = data.read if data.respond_to?(:read)
+        data = data.read if data.respond_to?(:read)
         @data = data
       end
 

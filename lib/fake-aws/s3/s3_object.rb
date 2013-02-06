@@ -11,22 +11,30 @@ module FakeAWS
       attr_reader :bucket
       attr_reader :key
 
-      # def write(data)
-      #   data = data.read if data.respond_to?(:read)
-      #   @data = data
-      # end
+      def write(data)
+        # data = data.read if data.respond_to?(:read)
+        @data = data
+      end
 
-      # def read
-      #   @data
-      # end
+      def read
+        must_exist!
+        @data
+      end
 
-      # def content_length
-      #   @data.length
-      # end
+      def content_length
+        must_exist!
+        @data.length
+      end
 
-      # def exists?
-      #   !!@data
-      # end
+      def exists?
+        !!@data
+      end
+
+      private
+
+      def must_exist!
+        raise KeyError unless exists?
+      end
 
     end
 

@@ -10,9 +10,9 @@ describe FakeAWS::S3::Bucket do
     bucket.name.should eq("foo")
   end
 
-  describe "#objects" do
+  let(:objects) { bucket.objects }
 
-    let(:objects) { bucket.objects }
+  describe "#objects" do
 
     it "starts empty" do
       objects.count.should be_zero
@@ -22,15 +22,16 @@ describe FakeAWS::S3::Bucket do
 
   describe "#objects['key']" do
 
-    let(:result) { bucket.objects["foo"] }
-
     it "returns an S3Object" do
-      result.should_not be_nil
-      result.should be_kind_of(FakeAWS::S3::S3Object)
+      objects["foo"].should be_kind_of(FakeAWS::S3::S3Object)
     end
 
     it "always returns the same S3Object" do
-      result.should equal(bucket.objects["foo"])
+      objects["foo"].should equal(objects["foo"])
+    end
+
+    it "converts Symbol keys to String" do
+      objects["foo"].should equal(objects[:foo])
     end
 
   end

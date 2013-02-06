@@ -1,4 +1,4 @@
-require "fake_aws/s3/s3_object"
+require "fake_aws/s3/object_collection"
 
 module FakeAWS
   module S3
@@ -7,9 +7,7 @@ module FakeAWS
 
       def initialize(name)
         @name = name
-        @objects = Hash.new do |h, key|
-          h[key] = S3Object.new(self, key)
-        end
+        @objects = ObjectCollection.new(self)
       end
 
       attr_reader :name

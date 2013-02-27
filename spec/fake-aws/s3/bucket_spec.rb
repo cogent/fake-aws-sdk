@@ -24,4 +24,25 @@ describe FakeAWS::S3::Bucket do
 
   end
 
+  context "containing objects" do
+
+    before do
+      bucket.objects["foo"].write("FOO")
+      bucket.objects["bar"].write("BAR")
+    end
+
+    describe "#clear!" do
+
+      before do
+        bucket.clear!
+      end
+
+      it "deletes all the things" do
+        bucket.should be_empty
+      end
+
+    end
+
+  end
+
 end

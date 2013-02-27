@@ -7,7 +7,7 @@ module FakeAWS
 
       def initialize(name)
         @name = name
-        @objects = ObjectCollection.new
+        clear!
       end
 
       attr_reader :name
@@ -19,6 +19,10 @@ module FakeAWS
 
       def empty?
         objects.empty?
+      end
+
+      def clear!
+        @objects = ObjectCollection.new
       end
 
     end

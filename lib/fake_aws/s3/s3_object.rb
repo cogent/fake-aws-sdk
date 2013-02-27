@@ -16,6 +16,11 @@ module FakeAWS
 
       def read
         must_exist!
+        if block_given?
+          @data.each_line do |line|
+            yield line
+          end
+        end
         @data
       end
 

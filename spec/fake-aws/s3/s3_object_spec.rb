@@ -51,6 +51,20 @@ describe FakeAWS::S3::S3Object do
         object.read.should eq(data)
       end
 
+      context "with a block" do
+
+        let(:data) { "foo\nbar\n" }
+
+        it "yields data, line-by-line" do
+          @chunks = []
+          object.read do |chunk|
+            @chunks << chunk
+          end
+          @chunks.should eq(["foo\n", "bar\n"])
+        end
+
+      end
+
     end
 
     describe "#content_length" do

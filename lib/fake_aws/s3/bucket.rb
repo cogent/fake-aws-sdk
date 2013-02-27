@@ -13,6 +13,10 @@ module FakeAWS
       attr_reader :name
       attr_reader :objects
 
+      def exists?
+        true
+      end
+
     end
 
   end

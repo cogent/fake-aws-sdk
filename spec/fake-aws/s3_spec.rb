@@ -24,6 +24,10 @@ describe FakeAWS::S3 do
       buckets["foo"].should equal(buckets["foo"])
     end
 
+    it "implicitly exists" do
+      buckets["anything"].should exist
+    end
+
     it "converts Symbol names to String" do
       buckets["foo"].should equal(buckets[:foo])
     end

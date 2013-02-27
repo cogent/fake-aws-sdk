@@ -12,6 +12,10 @@ describe FakeAWS::S3::Bucket do
     bucket.should exist
   end
 
+  it "starts empty" do
+    bucket.should be_empty
+  end
+
   describe "#objects" do
 
     it "returns an ObjectCollection" do

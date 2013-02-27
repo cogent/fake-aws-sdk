@@ -17,6 +17,10 @@ module FakeAWS
         true
       end
 
+      def empty?
+        objects.empty?
+      end
+
     end
 
   end

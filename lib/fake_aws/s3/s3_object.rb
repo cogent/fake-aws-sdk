@@ -28,6 +28,10 @@ module FakeAWS
         !!@data
       end
 
+      def delete
+        @data = nil
+      end
+
       private
 
       def must_exist!

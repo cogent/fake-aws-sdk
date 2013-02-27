@@ -63,6 +63,25 @@ describe FakeAWS::S3::S3Object do
 
   end
 
+  context "after being deleted" do
+
+    before do
+      object.write("whatever")
+      object.delete
+    end
+
+    it { should_not exist }
+
+    describe "#read" do
+
+      it "raises a KeyError" do
+        lambda { object.read }.should raise_error(KeyError)
+      end
+
+    end
+
+  end
+
   describe "#write" do
 
     context "with an IO object" do

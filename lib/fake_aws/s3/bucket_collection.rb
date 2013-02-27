@@ -1,5 +1,4 @@
 require "fake_aws/s3/bucket"
-require "forwardable"
 
 module FakeAWS
   class S3
@@ -16,10 +15,6 @@ module FakeAWS
         name = name.to_s
         @buckets[name]
       end
-
-      extend Forwardable
-
-      def_delegators :@buckets, :empty?
 
       include Enumerable
 

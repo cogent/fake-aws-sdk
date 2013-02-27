@@ -17,8 +17,6 @@ module FakeAWS
         @objects[key]
       end
 
-      extend Forwardable
-
       include Enumerable
 
       def each

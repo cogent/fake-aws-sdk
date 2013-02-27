@@ -4,10 +4,6 @@ describe FakeAWS::S3::BucketCollection do
 
   let(:buckets) { FakeAWS::S3::BucketCollection.new }
 
-  it "starts empty" do
-    buckets.should be_empty
-  end
-
   describe "#[]" do
 
     it "returns a Bucket" do

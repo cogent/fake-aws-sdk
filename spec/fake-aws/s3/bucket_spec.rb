@@ -1,5 +1,3 @@
-require "spec_helper"
-
 require "fake_aws/s3/bucket"
 
 describe FakeAWS::S3::Bucket do
@@ -15,7 +13,7 @@ describe FakeAWS::S3::Bucket do
   describe "#objects" do
 
     it "starts empty" do
-      objects.count.should be_zero
+      objects.should be_empty
     end
 
   end

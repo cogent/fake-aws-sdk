@@ -2,7 +2,7 @@ require "fake_aws/s3/s3_object"
 require "forwardable"
 
 module FakeAWS
-  module S3
+  class S3
 
     class ObjectCollection
 
@@ -20,7 +20,7 @@ module FakeAWS
 
       extend Forwardable
 
-      def_delegators :@objects, :count
+      def_delegators :@objects, :empty?
 
     end
 

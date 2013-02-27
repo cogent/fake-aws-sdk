@@ -3,12 +3,10 @@ module FakeAWS
 
     class S3Object
 
-      def initialize(bucket, key)
-        @bucket = bucket
+      def initialize(key)
         @key = key
       end
 
-      attr_reader :bucket
       attr_reader :key
 
       def write(data)

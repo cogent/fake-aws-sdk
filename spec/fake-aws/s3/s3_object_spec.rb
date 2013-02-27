@@ -3,9 +3,7 @@ require "fake_aws/s3/s3_object"
 
 describe FakeAWS::S3::S3Object do
 
-  let(:bucket) { FakeAWS::S3::Bucket.new("test-bucket") }
-
-  let(:object) { FakeAWS::S3::S3Object.new(bucket, "test-object") }
+  let(:object) { FakeAWS::S3::S3Object.new("test-object") }
 
   subject { object }
 

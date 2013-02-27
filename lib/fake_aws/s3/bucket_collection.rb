@@ -6,7 +6,7 @@ module FakeAWS
 
     class BucketCollection
 
-      def initialize(bucket)
+      def initialize
         @buckets = Hash.new do |h, name|
           h[name] = Bucket.new(name)
         end

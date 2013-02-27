@@ -7,7 +7,7 @@ module FakeAWS
 
     def initialize(options = {})
       @options = options
-      @buckets = BucketCollection.new(self)
+      @buckets = BucketCollection.new
     end
 
     attr_reader :buckets

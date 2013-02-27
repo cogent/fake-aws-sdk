@@ -19,7 +19,17 @@ module FakeAWS
 
       extend Forwardable
 
-      def_delegators :@objects, :empty?
+      include Enumerable
+
+      def each
+        @objects.each_value do |object|
+          yield object if object.exists?
+        end
+      end
+
+      def empty?
+        !@objects.values.any?(&:exists?)
+      end
 
     end
 

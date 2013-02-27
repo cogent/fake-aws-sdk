@@ -28,4 +28,50 @@ describe FakeAWS::S3::ObjectCollection do
 
   end
 
+  it "is Enumerable" do
+    objects.should be_kind_of(Enumerable)
+  end
+
+  context "after writing some objects" do
+
+    before do
+      objects["a"].write("CONTENT")
+      objects["b"].write("CONTENT")
+    end
+
+    it "is no longer empty" do
+      objects.should_not be_empty
+    end
+
+    describe "#each" do
+
+      it "yields the objects with content" do
+        objects.map(&:key).should eq(%w(a b))
+      end
+
+    end
+
+  end
+
+  context "after referencing some objects (without writing content)" do
+
+    before do
+      objects["a"]
+      objects["b"]
+    end
+
+    it "is still considered empty" do
+      objects.should be_empty
+    end
+
+    describe "#each" do
+
+      it "yields nothing" do
+        objects.map(&:key).should be_empty
+      end
+
+    end
+
+  end
+
 end

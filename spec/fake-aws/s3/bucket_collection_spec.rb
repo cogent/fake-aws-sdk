@@ -4,15 +4,11 @@ describe FakeAWS::S3::BucketCollection do
 
   let(:buckets) { FakeAWS::S3::BucketCollection.new }
 
-  describe "#buckets" do
-
-    it "starts empty" do
-      buckets.should be_empty
-    end
-
+  it "starts empty" do
+    buckets.should be_empty
   end
 
-  describe "#buckets['name']" do
+  describe "#[]" do
 
     it "returns a Bucket" do
       buckets["foo"].should be_kind_of(FakeAWS::S3::Bucket)
@@ -27,4 +23,17 @@ describe FakeAWS::S3::BucketCollection do
     end
 
   end
+
+  it "is Enumerable" do
+    buckets.should be_kind_of(Enumerable)
+  end
+
+  describe "#each" do
+    it "yields all buckets" do
+      buckets["a"]
+      buckets["b"]
+      buckets.map(&:name).should eq(%w(a b))
+    end
+  end
+
 end

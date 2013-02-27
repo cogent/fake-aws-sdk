@@ -21,6 +21,12 @@ module FakeAWS
 
       def_delegators :@buckets, :empty?
 
+      include Enumerable
+
+      def each(&block)
+        @buckets.each_value(&block)
+      end
+
     end
 
   end

@@ -6,9 +6,10 @@ module FakeAWS
 
     class ObjectCollection
 
-      def initialize
+      def initialize(bucket)
+        @bucket = bucket
         @objects = Hash.new do |h, key|
-          h[key] = S3Object.new(key)
+          h[key] = S3Object.new(bucket, key)
         end
       end
 

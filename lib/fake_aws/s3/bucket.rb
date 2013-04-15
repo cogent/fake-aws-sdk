@@ -22,7 +22,7 @@ module FakeAWS
       end
 
       def clear!
-        @objects = ObjectCollection.new
+        @objects = ObjectCollection.new(self)
       end
 
     end

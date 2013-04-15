@@ -3,10 +3,12 @@ module FakeAWS
 
     class S3Object
 
-      def initialize(key)
+      def initialize(bucket, key)
+        @bucket = bucket
         @key = key
       end
 
+      attr_reader :bucket
       attr_reader :key
 
       def write(data)
@@ -22,6 +24,14 @@ module FakeAWS
           end
         end
         @data
+      end
+
+      def copy_to(target, options = {})
+        resolve_object_reference(target, options).write(self.read)
+      end
+
+      def copy_from(source, options = {})
+        write(resolve_object_reference(source, options).read)
       end
 
       def content_length
@@ -41,6 +51,22 @@ module FakeAWS
 
       def must_exist!
         raise KeyError unless exists?
+      end
+
+      def resolve_object_reference(ref, options)
+        if ref.is_a?(S3Object)
+          ref
+        else
+          bucket = case
+          when options.has_key?(:bucket)
+            options[:bucket]
+          when options.has_key?(:bucket_name)
+            raise NotImplementError, "please specify :bucket"
+          else
+            self.bucket
+          end
+          bucket.objects[ref]
+        end
       end
 
     end

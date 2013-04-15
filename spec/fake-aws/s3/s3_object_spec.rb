@@ -3,7 +3,10 @@ require "fake_aws/s3/s3_object"
 
 describe FakeAWS::S3::S3Object do
 
-  let(:object) { FakeAWS::S3::S3Object.new("test-object") }
+  let(:bucket) { FakeAWS::S3::Bucket.new("foo") }
+  let(:other_bucket) { FakeAWS::S3::Bucket.new("bar") }
+
+  let(:object) { bucket.objects["test-object"] }
 
   subject { object }
 
@@ -108,6 +111,100 @@ describe FakeAWS::S3::S3Object do
 
       it "saves the streamed data" do
         object.read.should eq(data)
+      end
+
+    end
+
+  end
+
+  describe "#copy_to" do
+
+    before do
+      object.write("CONTENT")
+    end
+
+    context "with a target S3Object" do
+
+      let(:target_object) { other_bucket.objects["target"] }
+
+      before do
+        object.copy_to(target_object)
+      end
+
+      it "copies the object" do
+        target_object.read.should eq("CONTENT")
+      end
+
+    end
+
+    context "with a target key" do
+
+      before do
+        object.copy_to("dupe")
+      end
+
+      it "copies within the existing bucket" do
+        object.bucket.objects["dupe"].read.should eq("CONTENT")
+      end
+
+    end
+
+    context "with a target key, and a :bucket" do
+
+      before do
+        object.copy_to("dupe", :bucket => other_bucket)
+      end
+
+      it "copies to the specified bucket" do
+        other_bucket.objects["dupe"].read.should eq("CONTENT")
+      end
+
+    end
+
+  end
+
+  describe "#copy_from" do
+
+    let(:source_object) { other_bucket.objects["source"] }
+
+    before do
+      source_object.write("CONTENT")
+    end
+
+    context "with a source S3Object" do
+
+      before do
+        object.copy_from(source_object)
+      end
+
+      it "copies the object" do
+        object.read.should eq("CONTENT")
+      end
+
+    end
+
+    context "with a source key" do
+
+      let(:source_object) { bucket.objects["source"] }
+
+      before do
+        object.copy_from("source")
+      end
+
+      it "copies within the existing bucket" do
+        object.read.should eq("CONTENT")
+      end
+
+    end
+
+    context "with a target key, and a :bucket" do
+
+      before do
+        object.copy_from("source", :bucket => other_bucket)
+      end
+
+      it "copies from the specified bucket" do
+        object.read.should eq("CONTENT")
       end
 
     end

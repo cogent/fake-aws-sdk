@@ -2,7 +2,8 @@ require "fake_aws/s3/object_collection"
 
 describe FakeAWS::S3::ObjectCollection do
 
-  let(:objects) { FakeAWS::S3::ObjectCollection.new }
+  let(:bucket) { double("BUCKET") }
+  let(:objects) { FakeAWS::S3::ObjectCollection.new(bucket) }
 
   it "starts empty" do
     objects.should be_empty

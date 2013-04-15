@@ -19,7 +19,7 @@ module FakeAWS
       include Enumerable
 
       def each(&block)
-        @buckets.each_value(&block)
+        @buckets.values.sort_by(&:name).each(&block)
       end
 
     end

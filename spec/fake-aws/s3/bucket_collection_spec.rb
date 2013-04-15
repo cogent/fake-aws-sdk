@@ -25,10 +25,11 @@ describe FakeAWS::S3::BucketCollection do
   end
 
   describe "#each" do
-    it "yields all buckets" do
+    it "yields all buckets in alphabetical order" do
+      buckets["c"]
       buckets["a"]
       buckets["b"]
-      buckets.map(&:name).should eq(%w(a b))
+      buckets.map(&:name).should eq(%w(a b c))
     end
   end
 

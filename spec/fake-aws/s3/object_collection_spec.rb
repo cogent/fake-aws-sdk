@@ -36,6 +36,7 @@ describe FakeAWS::S3::ObjectCollection do
   context "after writing some objects" do
 
     before do
+      objects["c"].write("CONTENT")
       objects["a"].write("CONTENT")
       objects["b"].write("CONTENT")
     end
@@ -46,8 +47,8 @@ describe FakeAWS::S3::ObjectCollection do
 
     describe "#each" do
 
-      it "yields the objects with content" do
-        objects.map(&:key).should eq(%w(a b))
+      it "yields objects in alphabetical order" do
+        objects.map(&:key).should eq(%w(a b c))
       end
 
     end

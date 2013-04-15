@@ -20,10 +20,8 @@ module FakeAWS
 
       include Enumerable
 
-      def each
-        @objects.each_value do |object|
-          yield object if object.exists?
-        end
+      def each(&block)
+        @objects.values.select(&:exists?).sort_by(&:key).each(&block)
       end
 
       def empty?

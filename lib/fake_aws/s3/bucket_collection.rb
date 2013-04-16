@@ -22,6 +22,10 @@ module FakeAWS
         @buckets.values.sort_by(&:name).each(&block)
       end
 
+      def create(name, options = {})
+        @buckets[name] = Bucket.new(name, options)
+      end
+
     end
 
   end

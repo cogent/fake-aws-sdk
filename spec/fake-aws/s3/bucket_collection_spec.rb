@@ -33,4 +33,20 @@ describe FakeAWS::S3::BucketCollection do
     end
   end
 
+  describe "#create" do
+
+    before do
+      buckets.create("sydney-bucket", :location_constraint => "ap-southeast-2")
+    end
+
+    it "creates a Bucket" do
+      buckets.first.name.should eq("sydney-bucket")
+    end
+
+    it "records the location_constraint" do
+      buckets["sydney-bucket"].location_constraint.should eq("ap-southeast-2")
+    end
+
+  end
+
 end

@@ -24,6 +24,14 @@ describe FakeAWS::S3::Bucket do
 
   end
 
+  describe "#location_constraint" do
+
+    it "defaults to nil" do
+      bucket.location_constraint.should be_nil
+    end
+
+  end
+
   context "containing objects" do
 
     before do
@@ -41,6 +49,16 @@ describe FakeAWS::S3::Bucket do
         bucket.should be_empty
       end
 
+    end
+
+  end
+
+  context "with a location_constraint" do
+
+    let(:bucket) { described_class.new("foo", :location_constraint => "over-there") }
+
+    it "exposes the specified #location_constraint" do
+      bucket.location_constraint.should eq("over-there")
     end
 
   end

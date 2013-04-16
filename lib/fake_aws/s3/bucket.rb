@@ -5,13 +5,15 @@ module FakeAWS
 
     class Bucket
 
-      def initialize(name)
+      def initialize(name, options = {})
         @name = name
+        @location_constraint = options[:location_constraint]
         clear!
       end
 
       attr_reader :name
       attr_reader :objects
+      attr_reader :location_constraint
 
       def exists?
         true

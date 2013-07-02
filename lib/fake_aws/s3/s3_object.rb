@@ -11,7 +11,7 @@ module FakeAWS
       attr_reader :bucket
       attr_reader :key
 
-      def write(data)
+      def write(data, options = {})
         data = data.read if data.respond_to?(:read)
         @data = data
       end

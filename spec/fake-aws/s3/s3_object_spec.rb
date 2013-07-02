@@ -115,6 +115,18 @@ describe FakeAWS::S3::S3Object do
 
     end
 
+    context "with an ACL" do
+
+      before do
+        object.write("CONTENT", :acl => :public_read)
+      end
+
+      it "ignores the ACL" do
+        object.read.should eq("CONTENT")
+      end
+
+    end
+
   end
 
   describe "#copy_to" do
@@ -157,6 +169,18 @@ describe FakeAWS::S3::S3Object do
 
       it "copies to the specified bucket" do
         other_bucket.objects["dupe"].read.should eq("CONTENT")
+      end
+
+    end
+
+    context "with an ACL" do
+
+      before do
+        object.copy_to("dupe", :acl => :public_read)
+      end
+
+      it "ignores the ACL" do
+        object.bucket.objects["dupe"].read.should eq("CONTENT")
       end
 
     end
@@ -209,6 +233,19 @@ describe FakeAWS::S3::S3Object do
 
     end
 
+    context "with an ACL" do
+
+      let(:source_object) { bucket.objects["source"] }
+
+      before do
+        object.copy_from("source", :acl => :private)
+      end
+
+      it "ignores the ACL" do
+        object.read.should eq("CONTENT")
+      end
+
+    end
   end
 
 end

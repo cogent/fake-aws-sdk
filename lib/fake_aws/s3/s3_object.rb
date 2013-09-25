@@ -13,6 +13,7 @@ module FakeAWS
 
       def write(data, options = {})
         data = data.read if data.respond_to?(:read)
+        data = data.dup.force_encoding("BINARY") if data.respond_to?(:force_encoding)
         @data = data
       end
 

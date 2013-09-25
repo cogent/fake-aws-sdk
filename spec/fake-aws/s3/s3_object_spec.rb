@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require "fake_aws/s3/bucket"
 require "fake_aws/s3/s3_object"
 
@@ -123,6 +125,20 @@ describe FakeAWS::S3::S3Object do
 
       it "ignores the ACL" do
         object.read.should eq("CONTENT")
+      end
+
+    end
+
+    context "with UTF-8 data" do
+
+      let(:utf8_content) { "SN☃WMAN" }
+
+      before do
+        object.write(utf8_content)
+      end
+
+      it "converts it to BINARY" do
+        object.read.encoding.name.should eq("ASCII-8BIT")
       end
 
     end
